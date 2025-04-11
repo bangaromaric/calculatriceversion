@@ -1,0 +1,29 @@
+# .github/workflows/release.yml
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/calculatriceversion-*.jar
+          name: Calculatrice API ${{ github.ref_name }}
+          generate_release_notes: true
