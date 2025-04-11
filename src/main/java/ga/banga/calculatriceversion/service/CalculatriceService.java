@@ -57,7 +57,19 @@ public class CalculatriceService {
         }
         return Math.sqrt(number);
     }
+    // Nouvelle méthode pour calculer exponentielle (e^x)
+    public double exponentielle(double exposant) {
+        // Pour les exposants extrêmes, détecter les dépassements potentiels
+        if (exposant > 709) { // Approximation de ln(Double.MAX_VALUE)
+            throw new OperationImpossibleException("Exposant trop grand, résultat supérieur à la valeur maximale représentable");
+        }
 
+        if (exposant < -745) { // Approximation de ln(Double.MIN_VALUE)
+            return 0.0; // Underflow, retourne 0 comme approximation
+        }
+
+        return Math.exp(exposant);
+    }
     public double puissance(double base, double exposant) {
         // Pour gérer les cas particuliers comme 0^0 qui est indéterminé mathématiquement
         if (Math.abs(base) < 1e-10 && Math.abs(exposant) < 1e-10) {
