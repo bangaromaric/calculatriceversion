@@ -1,5 +1,19 @@
 # Historique des versions
 
+## 0.2.0-RC1 (Release Candidate 1)
+
+Date de sortie: 2025-04-12
+
+### Nouvelles fonctionnalités
+- Ajout des fonctions trigonométriques (sinus, cosinus, tangente)
+- Amélioration de la fonction logarithme naturel pour les valeurs proches de zéro
+- Ajout d'une fonction d'arrondi avec précision personnalisable
+- Support des angles en degrés et en radians pour les fonctions trigonométriques
+
+### Corrections
+- Amélioration de la détection des valeurs limites
+- Meilleure gestion des erreurs et messages plus explicites
+
 ## 0.2.0-M1 (Milestone 1)
 
 Date de sortie: 2025-04-11
