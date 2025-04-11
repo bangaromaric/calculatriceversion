@@ -10,7 +10,7 @@
     </parent>
     <groupId>ga.banga</groupId>
     <artifactId>calculatriceversion</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>calculatriceversion</name>
     <description>API REST pour calculatrice élémentaire</description>
     <url/>

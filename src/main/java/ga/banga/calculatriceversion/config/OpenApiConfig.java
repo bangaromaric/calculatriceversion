@@ -3,6 +3,7 @@ package ga.banga.calculatriceversion.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,9 +15,13 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("API Calculatrice")
                         .description("API REST pour effectuer des opérations mathématiques de base")
-                        .version("0.1.0")
+                        .version("0.1.1")
                         .contact(new Contact()
                                 .name("Équipe de développement")
-                                .email("team@example.ga")));
+                                .email("team@example.ga")
+                                .url("https://example.ga"))
+                        .license(new License()
+                                .name("MIT License")
+                                .url("https://opensource.org/licenses/MIT")));
     }
 }
