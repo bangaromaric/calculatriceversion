@@ -111,6 +111,40 @@ public class CalculatriceService {
         return Math.pow(base, exposant);
     }
 
+    // Nouvelles méthodes trigonométriques
+
+    /**
+     * Calcule le sinus de l'angle en radians
+     * @param angleRadians angle en radians
+     * @return sinus de l'angle
+     */
+    public double sinus(double angleRadians) {
+        return Math.sin(angleRadians);
+    }
+
+    /**
+     * Calcule le cosinus de l'angle en radians
+     * @param angleRadians angle en radians
+     * @return cosinus de l'angle
+     */
+    public double cosinus(double angleRadians) {
+        return Math.cos(angleRadians);
+    }
+
+    /**
+     * Calcule la tangente de l'angle en radians
+     * @param angleRadians angle en radians
+     * @return tangente de l'angle
+     */
+    public double tangente(double angleRadians) {
+        // La tangente n'est pas définie pour (π/2) + k*π
+        double normalizedAngle = angleRadians % Math.PI;
+        if (Math.abs(normalizedAngle - Math.PI/2) < 1e-10) {
+            throw new OperationImpossibleException("La tangente n'est pas définie pour cet angle (π/2 + k*π)");
+        }
+        return Math.tan(angleRadians);
+    }
+
 
 
 }
