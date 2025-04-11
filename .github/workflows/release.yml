@@ -1,0 +1,41 @@
+# .github/workflows/release.yml
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - name: Extract changelog for version
+        id: extract_changelog
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          # Extrait la section du changelog correspondant à la version actuelle
+          CHANGELOG=$(awk -v ver="$VERSION" '/^## / { if (p) { exit }; if ($2 == ver || $2 == "'"$VERSION"'") { p=1; next } } p' CHANGELOG.md)
+          # Échapper les caractères spéciaux pour GitHub Actions
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+          echo "changelog=$CHANGELOG" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: target/calculatriceversion-*.jar
+          name: Calculatrice API ${{ github.ref_name }}
+          body: ${{ steps.extract_changelog.outputs.changelog }}
