@@ -150,6 +150,22 @@ public class CalculatriceService {
         return Math.tan(angleRadians);
     }
 
+    /**
+     * Arrondit un résultat avec le nombre de décimales spécifié
+     * @param value valeur à arrondir
+     * @param decimalPlaces nombre de décimales à conserver
+     * @return valeur arrondie
+     */
+    public double arrondir(double value, int decimalPlaces) {
+        if (decimalPlaces < 0) {
+            throw new IllegalArgumentException("Le nombre de décimales ne peut pas être négatif");
+        }
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(decimalPlaces, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
 
 
 }
