@@ -76,4 +76,51 @@ public class CalculatriceServiceTest {
             calculatriceService.puissance(-2.0, 0.5);
         });
     }
+
+    @Test
+    public void testAdditionGrandsNombres() {
+        // Test avec des grands nombres
+        double number1 = 1_000_000_000_000.0;
+        double number2 = 1_000_000_000_000.0;
+        assertEquals(2_000_000_000_000.0, calculatriceService.addition(number1, number2), 0.001);
+
+        // Test avec des grands nombres et précision
+        number1 = 1_000_000_000_000.123;
+        number2 = 1_000_000_000_000.456;
+        assertEquals(2_000_000_000_000.579, calculatriceService.addition(number1, number2), 0.001);
+    }
+
+    @Test
+    public void testSoustractionGrandsNombres() {
+        // Test avec des grands nombres
+        double number1 = 1_000_000_000_000.0;
+        double number2 = 999_999_999_999.0;
+        assertEquals(1.0, calculatriceService.soustraction(number1, number2), 0.001);
+
+        // Test avec des grands nombres et précision
+        number1 = 1_000_000_000_000.123;
+        number2 = 1_000_000_000_000.122;
+        assertEquals(0.001, calculatriceService.soustraction(number1, number2), 0.000001);
+    }
+
+    @Test
+    public void testMultiplicationGrandsNombres() {
+        // Test avec des grands nombres
+        double number1 = 1_000_000_000.0;
+        double number2 = 1_000_000_000.0;
+        assertEquals(1_000_000_000_000_000_000.0, calculatriceService.multiplication(number1, number2), 0.001);
+    }
+
+    @Test
+    public void testDivisionGrandsNombres() {
+        // Test avec des grands nombres
+        double number1 = 1_000_000_000_000.0;
+        double number2 = 1_000_000_000.0;
+        assertEquals(1_000.0, calculatriceService.division(number1, number2), 0.001);
+
+        // Test avec des petits nombres issus de grands nombres
+        number1 = 1.0;
+        number2 = 1_000_000_000.0;
+        assertEquals(0.000000001, calculatriceService.division(number1, number2), 0.000000000001);
+    }
 }
