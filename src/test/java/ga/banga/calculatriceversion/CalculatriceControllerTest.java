@@ -1,7 +1,9 @@
 package ga.banga.calculatriceversion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ga.banga.calculatriceversion.exception.DivisionParZeroException;
 import ga.banga.calculatriceversion.request.OperationRequest;
+import ga.banga.calculatriceversion.service.CalculatriceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,6 +25,9 @@ public class CalculatriceControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    private final CalculatriceService calculatriceService = new CalculatriceService();
+
 
     @Test
     public void testAddition() throws Exception {
@@ -54,5 +61,45 @@ public class CalculatriceControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testMultiplication() {
+        // Test basique
+        assertEquals(6.0, calculatriceService.multiplication(2.0, 3.0), 0.001);
+
+        // Test avec un nombre négatif
+        assertEquals(-6.0, calculatriceService.multiplication(2.0, -3.0), 0.001);
+
+        // Test avec zéro
+        assertEquals(0.0, calculatriceService.multiplication(5.0, 0.0), 0.001);
+
+        // Test avec des nombres décimaux
+        assertEquals(6.72, calculatriceService.multiplication(2.1, 3.2), 0.001);
+    }
+
+    @Test
+    public void testDivision() {
+        // Test basique
+        assertEquals(2.0, calculatriceService.division(6.0, 3.0), 0.001);
+
+        // Test avec un nombre négatif
+        assertEquals(-2.0, calculatriceService.division(6.0, -3.0), 0.001);
+
+        // Test avec des nombres décimaux
+        assertEquals(2.5, calculatriceService.division(5.0, 2.0), 0.001);
+    }
+
+    @Test
+    public void testDivisionParZero() {
+        // Test de l'exception lors d'une division par zéro
+        assertThrows(DivisionParZeroException.class, () -> {
+            calculatriceService.division(5.0, 0.0);
+        });
+
+        // Test avec une valeur très proche de zéro
+        assertThrows(DivisionParZeroException.class, () -> {
+            calculatriceService.division(5.0, 1e-11);
+        });
     }
 }
