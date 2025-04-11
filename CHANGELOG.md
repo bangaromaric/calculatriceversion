@@ -1,5 +1,14 @@
 # Historique des versions
 
+## 0.2.0-M1 (Milestone 1)
+
+Date de sortie: 2025-04-11
+
+### Nouvelles fonctionnalités
+- Ajout de la fonction exponentielle (e^x)
+- Ajout de la fonction logarithme naturel
+- Amélioration de la précision de la racine carrée pour les grands nombres
+
 ## 0.1.1 (Hotfix)
 
 Date de sortie: 2025-04-11
