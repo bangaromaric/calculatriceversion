@@ -52,4 +52,5 @@ jobs:
         with:
           files: target/calculatriceversion-*.jar
           name: Calculatrice API ${{ github.ref_name }}
-          body: ${{ steps.extract_changelog.outputs.changelog }}
+          body: ${{ env.changelog }}
+#          body: ${{ steps.extract_changelog.outputs.changelog }}
