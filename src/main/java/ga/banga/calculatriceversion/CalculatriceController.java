@@ -59,4 +59,25 @@ public class CalculatriceController {
         double result = calculatriceService.puissance(request.getNumber(), request.getExposant());
         return ResponseEntity.ok(new OperationResponse(result, "puissance"));
     }
+
+    @PostMapping("/logarithme")
+    public ResponseEntity<OperationResponse> logarithme(@Valid @RequestBody OperationAvanceeRequest request) {
+        if (request.getExposant() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        double result = calculatriceService.logarithme(request.getNumber(), request.getExposant());
+        return ResponseEntity.ok(new OperationResponse(result, "logarithme"));
+    }
+
+    @PostMapping("/logarithme-naturel")
+    public ResponseEntity<OperationResponse> logarithmeNaturel(@Valid @RequestBody OperationAvanceeRequest request) {
+        double result = calculatriceService.logarithmeNaturel(request.getNumber());
+        return ResponseEntity.ok(new OperationResponse(result, "logarithme-naturel"));
+    }
+
+    @PostMapping("/logarithme-decimal")
+    public ResponseEntity<OperationResponse> logarithmeDecimal(@Valid @RequestBody OperationAvanceeRequest request) {
+        double result = calculatriceService.logarithmeDecimal(request.getNumber());
+        return ResponseEntity.ok(new OperationResponse(result, "logarithme-decimal"));
+    }
 }

@@ -123,4 +123,61 @@ public class CalculatriceServiceTest {
         number2 = 1_000_000_000.0;
         assertEquals(0.000000001, calculatriceService.division(number1, number2), 0.000000000001);
     }
+
+    @Test
+    public void testLogarithme() {
+        // Log base 10 de 100 = 2
+        assertEquals(2.0, calculatriceService.logarithme(100.0, 10.0), 0.001);
+
+        // Log base 2 de 8 = 3
+        assertEquals(3.0, calculatriceService.logarithme(8.0, 2.0), 0.001);
+
+        // Logarithme avec des valeurs décimales
+        assertEquals(1.5, calculatriceService.logarithme(5.196, 2.3), 0.001);
+
+        // Test avec nombre négatif
+        assertThrows(OperationImpossibleException.class, () -> {
+            calculatriceService.logarithme(-10.0, 10.0);
+        });
+
+        // Test avec base invalide
+        assertThrows(OperationImpossibleException.class, () -> {
+            calculatriceService.logarithme(10.0, 1.0);
+        });
+
+        assertThrows(OperationImpossibleException.class, () -> {
+            calculatriceService.logarithme(10.0, -2.0);
+        });
+    }
+
+    @Test
+    public void testLogarithmeNaturel() {
+        // ln(e) = 1
+        assertEquals(1.0, calculatriceService.logarithmeNaturel(Math.E), 0.001);
+
+        // ln(1) = 0
+        assertEquals(0.0, calculatriceService.logarithmeNaturel(1.0), 0.001);
+
+        // Test avec nombre négatif
+        assertThrows(OperationImpossibleException.class, () -> {
+            calculatriceService.logarithmeNaturel(-5.0);
+        });
+    }
+
+    @Test
+    public void testLogarithmeDecimal() {
+        // log10(100) = 2
+        assertEquals(2.0, calculatriceService.logarithmeDecimal(100.0), 0.001);
+
+        // log10(1000) = 3
+        assertEquals(3.0, calculatriceService.logarithmeDecimal(1000.0), 0.001);
+
+        // log10(0.1) = -1
+        assertEquals(-1.0, calculatriceService.logarithmeDecimal(0.1), 0.001);
+
+        // Test avec nombre négatif
+        assertThrows(OperationImpossibleException.class, () -> {
+            calculatriceService.logarithmeDecimal(-10.0);
+        });
+    }
 }

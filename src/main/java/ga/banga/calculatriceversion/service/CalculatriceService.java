@@ -73,5 +73,35 @@ public class CalculatriceService {
     }
 
 
+    public double logarithme(double nombre, double base) {
+        if (nombre <= 0) {
+            throw new OperationImpossibleException("Le logarithme n'est défini que pour les nombres strictement positifs");
+        }
+
+        if (base <= 0 || base == 1) {
+            throw new OperationImpossibleException("La base du logarithme doit être strictement positive et différente de 1");
+        }
+
+        // Log(nombre, base) = ln(nombre) / ln(base)
+        return Math.log(nombre) / Math.log(base);
+    }
+
+    // Logarithme naturel (base e)
+    public double logarithmeNaturel(double nombre) {
+        if (nombre <= 0) {
+            throw new OperationImpossibleException("Le logarithme n'est défini que pour les nombres strictement positifs");
+        }
+
+        return Math.log(nombre);
+    }
+
+    // Logarithme base 10
+    public double logarithmeDecimal(double nombre) {
+        if (nombre <= 0) {
+            throw new OperationImpossibleException("Le logarithme n'est défini que pour les nombres strictement positifs");
+        }
+
+        return Math.log10(nombre);
+    }
 
 }
