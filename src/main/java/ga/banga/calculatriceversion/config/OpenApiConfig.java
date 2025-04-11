@@ -15,7 +15,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("API Calculatrice")
                         .description("API REST pour effectuer des opérations mathématiques de base")
-                        .version("0.2.0")
+                        .version("0.3.0")
                         .contact(new Contact()
                                 .name("Équipe de développement")
                                 .email("team@example.ga")
