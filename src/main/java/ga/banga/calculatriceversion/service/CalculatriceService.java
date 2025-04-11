@@ -88,10 +88,15 @@ public class CalculatriceService {
 
         return Math.exp(exposant);
     }
-    // Nouvelle méthode pour calculer le logarithme naturel
+    // Correction de la méthode logarithmeNaturel
     public double logarithmeNaturel(double number) {
         if (number <= 0) {
             throw new OperationImpossibleException("Impossible de calculer le logarithme naturel d'un nombre négatif ou nul");
+        }
+
+        // Traitement spécial pour les nombres très proches de zéro
+        if (number < 1e-10) {
+            throw new OperationImpossibleException("Valeur trop proche de zéro, risque d'imprécision numérique");
         }
 
         return Math.log(number);
