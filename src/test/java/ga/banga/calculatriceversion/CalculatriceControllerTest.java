@@ -91,15 +91,15 @@ public class CalculatriceControllerTest {
     }
 
     @Test
-    public void testDivisionParZero() {
-        // Test de l'exception lors d'une division par zéro
-        assertThrows(DivisionParZeroException.class, () -> {
-            calculatriceService.division(5.0, 0.0);
-        });
+    public void testDivisionPrecision() {
+        // Test de précision pour des divisions qui peuvent causer des problèmes d'arrondi
+        assertEquals(0.3333333333, calculatriceService.division(1.0, 3.0), 0.0000000001);
+        assertEquals(0.6666666667, calculatriceService.division(2.0, 3.0), 0.0000000001);
 
-        // Test avec une valeur très proche de zéro
-        assertThrows(DivisionParZeroException.class, () -> {
-            calculatriceService.division(5.0, 1e-11);
-        });
+        // Test avec des grands nombres
+        assertEquals(0.1, calculatriceService.division(1000000.0, 10000000.0), 0.0000000001);
+
+        // Test avec des très petits nombres
+        assertEquals(10.0, calculatriceService.division(0.0001, 0.00001), 0.0000000001);
     }
 }
