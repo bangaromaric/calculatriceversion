@@ -51,10 +51,28 @@ public class CalculatriceService {
     // Méthodes avancées (si implémentées) restent inchangées car elles utilisent Math.sqrt et Math.pow
     // qui ont déjà une bonne précision
 
+    // Méthode racineCarree améliorée pour plus de précision
     public double racineCarree(double number) {
         if (number < 0) {
             throw new OperationImpossibleException("Impossible de calculer la racine carrée d'un nombre négatif");
         }
+
+        // Pour les grands nombres ou très petits nombres, utiliser une approche avec BigDecimal
+        if (number > 1e10 || number < 1e-10) {
+            BigDecimal bd = BigDecimal.valueOf(number);
+            // Newton-Raphson method for square root approximation with BigDecimal
+            BigDecimal x = bd.divide(BigDecimal.valueOf(2), MATH_CONTEXT);
+            BigDecimal previous;
+
+            do {
+                previous = x;
+                x = x.add(bd.divide(x, MATH_CONTEXT)).divide(BigDecimal.valueOf(2), MATH_CONTEXT);
+            } while (x.subtract(previous).abs().compareTo(BigDecimal.valueOf(1e-15)) > 0);
+
+            return x.doubleValue();
+        }
+
+        // Pour les nombres normaux, utiliser Math.sqrt qui est optimisé
         return Math.sqrt(number);
     }
     // Nouvelle méthode pour calculer exponentielle (e^x)
