@@ -70,6 +70,15 @@ public class CalculatriceService {
 
         return Math.exp(exposant);
     }
+    // Nouvelle méthode pour calculer le logarithme naturel
+    public double logarithmeNaturel(double number) {
+        if (number <= 0) {
+            throw new OperationImpossibleException("Impossible de calculer le logarithme naturel d'un nombre négatif ou nul");
+        }
+
+        return Math.log(number);
+    }
+
     public double puissance(double base, double exposant) {
         // Pour gérer les cas particuliers comme 0^0 qui est indéterminé mathématiquement
         if (Math.abs(base) < 1e-10 && Math.abs(exposant) < 1e-10) {
