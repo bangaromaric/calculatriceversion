@@ -81,7 +81,7 @@ L'API retourne les codes d'erreur HTTP standards :
 ### Fonctions trigonométriques
 
 ```bash
-# Calculer le sinus d'un angle en radians
+# Calculer le sinus d'un angle en radians.
 curl -X POST http://localhost:8080/api/v1/calculatrice/avancee/sinus \
      -H "Content-Type: application/json" \
      -d '{"angleRadians": 1.5708, "degres": false}'
