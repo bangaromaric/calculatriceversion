@@ -1,5 +1,27 @@
 # Historique des versions
 
+## 0.2.0
+
+Date de sortie: 2025-04-15
+
+### Nouvelles fonctionnalités
+- Ajout des fonctions trigonométriques (sinus, cosinus, tangente)
+- Support des angles en degrés et en radians
+- Ajout des fonctions exponentielles et logarithmiques
+- Fonction de racine carrée optimisée pour les grands nombres
+- Système d'arrondi personnalisable avec précision configurable
+
+### Améliorations
+- Meilleure détection des cas limites pour toutes les fonctions
+- Messages d'erreur plus détaillés et explicites
+- Optimisation des performances pour les calculs intensifs
+- Documentation complète avec exemples d'utilisation
+
+### Corrections
+- Amélioration de la précision pour les cas limites de la tangente
+- Gestion améliorée des valeurs proches de zéro dans les logarithmes
+- Détection robuste des opérations mathématiquement impossibles
+
 ## 0.2.0-RC1 (Release Candidate 1)
 
 Date de sortie: 2025-04-12
