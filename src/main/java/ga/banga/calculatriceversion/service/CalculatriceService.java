@@ -18,6 +18,9 @@ public class CalculatriceService {
     }
 
     public double division(double number1, double number2) {
+        if (Math.abs(number2) < 1e-10) {
+            throw new DivisionParZeroException("Division par zéro impossible");
+        }
         return number1 / number2;
     }
 }
