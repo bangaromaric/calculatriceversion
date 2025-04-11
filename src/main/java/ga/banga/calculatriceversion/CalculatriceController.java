@@ -31,4 +31,16 @@ public class CalculatriceController {
         double result = calculatriceService.soustraction(request.getNumber1(), request.getNumber2());
         return ResponseEntity.ok(new OperationResponse(result, "soustraction"));
     }
+
+    @PostMapping("/multiplication")
+    public ResponseEntity<OperationResponse> multiplication(@Valid @RequestBody OperationRequest request) {
+        double result = calculatriceService.multiplication(request.getNumber1(), request.getNumber2());
+        return ResponseEntity.ok(new OperationResponse(result, "multiplication"));
+    }
+
+    @PostMapping("/division")
+    public ResponseEntity<OperationResponse> division(@Valid @RequestBody OperationRequest request) {
+        double result = calculatriceService.division(request.getNumber1(), request.getNumber2());
+        return ResponseEntity.ok(new OperationResponse(result, "division"));
+    }
 }
