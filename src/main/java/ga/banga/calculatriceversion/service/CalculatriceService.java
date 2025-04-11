@@ -142,11 +142,33 @@ public class CalculatriceService {
      * @return tangente de l'angle
      */
     public double tangente(double angleRadians) {
-        // La tangente n'est pas définie pour (π/2) + k*π
-        double normalizedAngle = angleRadians % Math.PI;
-        if (Math.abs(normalizedAngle - Math.PI/2) < 1e-10) {
-            throw new OperationImpossibleException("La tangente n'est pas définie pour cet angle (π/2 + k*π)");
+        // Normalisation de l'angle dans [0, 2π[
+        double normalizedAngle = angleRadians % (2 * Math.PI);
+        if (normalizedAngle < 0) {
+            normalizedAngle += 2 * Math.PI;
         }
+
+        // Vérification plus précise des cas où tangente n'est pas définie
+        double epsilon = 1e-12;
+        double halfPi = Math.PI / 2;
+
+        for (int k = 0; k < 4; k++) {
+            double singularPoint = halfPi + k * Math.PI;
+            if (Math.abs(normalizedAngle - singularPoint) < epsilon) {
+                throw new OperationImpossibleException(
+                        String.format("La tangente n'est pas définie pour cet angle (%s)",
+                                k % 2 == 0 ? "π/2 + 2kπ" : "3π/2 + 2kπ")
+                );
+            }
+        }
+
+        // Utilisation de sin/cos pour les cas proches des limites
+        if (Math.abs(Math.cos(angleRadians)) < 0.001) {
+            double sin = Math.sin(angleRadians);
+            double cos = Math.cos(angleRadians);
+            return sin / cos;
+        }
+
         return Math.tan(angleRadians);
     }
 
